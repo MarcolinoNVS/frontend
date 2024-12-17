@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 const Registrar = () => {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
-  const [papel, setPapel] = useState("cliente");
+  const [role, setRole] = useState("cliente");
   const [mensagem, setMensagem] = useState("");
   const [mensagemErro, setMensagemErro] = useState("");
 
@@ -17,19 +17,28 @@ const Registrar = () => {
       return;
     }
 
+    // Log para verificar os dados antes de enviar
+    console.log("Enviando dados para o backend:", { usuario, senha, role });
+
     try {
-      await axios.post("https://marcosnovais.com/registrar", {
+      // Usando a instância do Axios configurada
+      await api.post("/register", {
         usuario,
         senha,
-        papel,
+        role,
       });
+
+      // Se o registro for bem-sucedido
       setMensagem("Usuário registrado com sucesso!");
       setMensagemErro(""); // Limpa a mensagem de erro
       setUsuario("");
       setSenha("");
-      setPapel("cliente");
+      setRole("cliente");
     } catch (err) {
-      console.error(err);
+      console.error(
+        "Erro no registro:",
+        err.response ? err.response.data : err
+      );
       setMensagemErro(
         "Erro ao registrar usuário. Verifique os dados e tente novamente."
       );
@@ -61,7 +70,7 @@ const Registrar = () => {
         </div>
         <div>
           <label>Papel: </label>
-          <select value={papel} onChange={(e) => setPapel(e.target.value)}>
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="cliente">Cliente</option>
             <option value="admin">Admin</option>
           </select>

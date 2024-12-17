@@ -72,10 +72,26 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/cliente" element={<Cliente />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registrar" element={<Registrar />} />
+
+            {/* Rotas protegidas */}
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/cliente"
+              element={
+                <PrivateRoute>
+                  <Cliente />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
         <Footer />

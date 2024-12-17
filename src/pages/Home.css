@@ -49,10 +49,6 @@ ul li {
   min-height: 100vh; /* Garante que a altura mínima seja 100% da tela */
 }
 
-.main-content {
-  flex: 1; /* Isso faz o conteúdo principal ocupar todo o espaço restante */
-}
-
 .chokokutai-regular {
   font-family: "Chokokutai", system-ui;
   font-weight: 400;

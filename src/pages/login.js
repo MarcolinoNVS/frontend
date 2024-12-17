@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -13,18 +13,14 @@ const Login = () => {
     console.log("Tentando fazer login com:", { usuario, senha });
 
     try {
-      const response = await axios.post("https://marcosnovais.com/login", {
-        usuario,
-        senha,
-      });
+      // Usando a instância do Axios configurada
+      const response = await api.post("/login", { usuario, senha });
 
       console.log("Resposta da API:", response.data);
 
-      // Armazena o token e a role no localStorage
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.role);
 
-      // Redireciona para o painel correto baseado no papel
       if (response.data.role === "admin") {
         navigate("/dashboard");
       } else if (response.data.role === "cliente") {
@@ -37,7 +33,7 @@ const Login = () => {
   };
 
   const handleRegisterRedirect = () => {
-    navigate("/registrar"); // Redireciona para a página de registro
+    navigate("/registrar");
   };
 
   return (

@@ -20,14 +20,12 @@ const Dashboard = () => {
 
         console.log("Token enviado:", token);
 
-        // Verifica o papel do usuário
         const role = localStorage.getItem("role");
 
-        // Faz a requisição para a URL correta dependendo do papel
         const apiUrl =
           role === "admin"
-            ? "https://marcosnovais.com//admin"
-            : "https://marcosnovais.com//cliente";
+            ? "https://marcosnovais.com/api/admin"
+            : "https://marcosnovais.com/api/cliente";
 
         const response = await axios.get(apiUrl, {
           headers: {
@@ -37,17 +35,21 @@ const Dashboard = () => {
 
         console.log("Resposta da API:", response.data);
 
-        setUserData(response.data);
+        // Verifique se a resposta é um JSON válido
+        if (response.status === 200 && response.data) {
+          setUserData(response.data);
+        } else {
+          setError("Resposta inesperada.");
+        }
       } catch (err) {
         console.log("Erro ao fazer a requisição:", err);
 
-        setError("Você não tem permissão para acessar esta página.");
-
-        // Verificando se o erro é relacionado ao token
+        // Verificando erro com código de status 401 ou 403
         if (err.response?.status === 401 || err.response?.status === 403) {
           console.log("Token inválido ou expirado");
-          // Redireciona para a página de login
           navigate("/login");
+        } else {
+          setError("Você não tem permissão para acessar esta página.");
         }
       }
     };
@@ -64,12 +66,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="poppins-thin">
+    <div className="alldashboard-container">
       <h2>Bem-vindo ao Dashboard</h2>
       <p>
         {userData.role === "admin" ? "Painel de Admin" : "Painel de Cliente"}
       </p>
-      <p>Dados do usuário: {JSON.stringify(userData)}</p>
+      <p>Nome do usuário: {userData.name}</p>
+      <p>Role: {userData.role}</p>
     </div>
   );
 };

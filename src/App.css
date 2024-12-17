@@ -153,7 +153,7 @@ button:hover {
 .background-container:hover {
   cursor: pointer;
 }
-/* Adicione isso no seu arquivo CSS (ex: App.css ou Home.css) */
+
 .link {
   color: white;
   text-decoration: none;
@@ -164,8 +164,6 @@ button:hover {
 .link:hover {
   color: yellow; /* Quando o mouse passar sobre o link, ele ficará amarelo */
 }
-
-/* App.css ou index.css */
 
 /* Ajusta o fundo e o layout para dispositivos móveis */
 .app {
@@ -186,6 +184,7 @@ button:hover {
 /* Evita que a página fique muito "espremida" em telas menores */
 .main-content {
   padding: 20px;
+  flex: 1; /* Isso faz o conteúdo principal ocupar todo o espaço restante */
 }
 
 /* Outros estilos para o header e footer (se necessário) */
@@ -200,4 +199,18 @@ button:hover {
   .footer {
     font-size: 14px;
   }
+}
+
+.alldashboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%; /* Ajuste o tamanho máximo */
+  margin: 20px auto; /* Centraliza o contêiner */
+  padding: 30px; /* Ajuste do espaçamento interno */
+  background-color: #222; /* Cor de fundo semelhante ao formulário */
+  border-radius: 8px; /* Mesma borda arredondada */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
+  color: #fff; /* Texto branco para contraste */
 }
